@@ -1,10 +1,10 @@
-const { Schema, Types } = require('mongoose');
+const { Schema, Types, model } = require('mongoose');
 
 const reactionSchema = new Schema(
     {
         reactionId: {
             type: Schema.Types.ObjectId,
-            default: Types.ObjectId
+            default: () => new Types.ObjectId(),
         },
         reactionBody: {
             type: String,
@@ -47,4 +47,6 @@ const thoughtSchema = new Schema(
 thoughtSchema.virtual("reactionCount").get(function(){
     return this.reactions.length
 })
-module.exports = assignmentSchema;
+const Thought = model('thought', thoughtSchema);
+
+module.exports = Thought;
